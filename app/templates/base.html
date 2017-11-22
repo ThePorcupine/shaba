@@ -1,12 +1,34 @@
 <html>
 <head>
-
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='css/materialize.min.css')}}"  media="screen,projection"/>
 </head>
 <body>
+  {% if current_user.is_authenticated %}
+  Logged in!
+  {% else %}
+  Not logged in!
+  {% endif %}
+
   {% block content %}
   {% endblock %}
 
   {% block scripts %}
   {% endblock %}
+
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="{{url_for('static', filename='js/materialize.min.js')}}"></script>
+  <script>
+  {% with flashedMessages = get_flashed_messages() %}
+      {% if flashedMessages %}
+        {% for message in flashedMessages %}
+        Materialize.toast('{{message}}', 4000)
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </script>
 </body>
 </html>

@@ -10,8 +10,7 @@ class User(UserMixin, Base):
     __tablename__ = 'users'
     id = db.Column(db.Integer(), primary_key=True)
     email = db.Column(db.String(64), unique=True)
-    password = db.Column(db.String(64))
-    salt = db.Column(db.String(18))
+    password = db.Column(db.Text())
 
     def __init__(self, email, password, **kwargs):
         # Hash into method$salt$hash
@@ -19,9 +18,5 @@ class User(UserMixin, Base):
                                           method='sha256',
                                           salt_length=18)
 
-        splitPass = passHash.split("$")
-
-        self.password = splitPass[2]
-        self.salt = splitPass[1]
-
+        self.password = passHash
         self.email = email
