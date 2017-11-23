@@ -19,7 +19,7 @@ def get_redirect_target():
             continue
         if is_safe_url(target):
             return target
-#Hello
+#Hell
 
 class RedirectForm(FlaskForm):
     next = HiddenField()
